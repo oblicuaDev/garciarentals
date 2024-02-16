@@ -1,0 +1,250 @@
+{
+  "enableTranslates": ["es", "en", "pt", "fr"],
+  "enableMainHeader": true,
+  "menuItems": [
+    {
+      "es": {
+        "title": "Inicio",
+        "link": "/es"
+      },
+      "en": {
+        "title": "Explora Bogotá",
+        "link": "/en"
+      },
+      "pt": {
+        "title": "Explore Bogotá",
+        "link": "/pt"
+      },
+      "fr": {
+        "title": "Explore Bogotá",
+        "link": "/fr"
+      }
+    },
+    {
+      "es": {
+        "title": "Explora Bogotá"
+      },
+      "en": {
+        "title": "Explora Bogotá"
+      },
+      "pt": {
+        "title": "Explore Bogotá"
+      },
+      "children": [
+        {
+          "es": {
+            "title": "Cerros",
+            "link": "/es/explora/cerros/2572"
+          },
+          "en": {
+            "title": "Cerros",
+            "link": "/en/explora/cerros/2572"
+          },
+          "pt": {
+            "title": "Cerros",
+            "link": "/pt/explora/cerros/2572"
+          }
+        },
+        {
+          "es": {
+            "title": "Ruta Colonial",
+            "link": "/es/explora/ruta-colonial/456"
+          },
+          "en": {
+            "title": "Ruta Colonial",
+            "link": "/en/explora/ruta-colonial/456"
+          },
+          "pt": {
+            "title": "Ruta Colonial",
+            "link": "/pt/explora/ruta-colonial/456"
+          }
+        },
+        {
+          "es": { "title": "Museos", "link": "/es/explora/museos/299" },
+          "en": { "title": "Museos", "link": "/en/explora/museos/299" },
+          "pt": { "title": "Museos", "link": "/pt/explora/museos/299" }
+        },
+        {
+          "es": { "title": "Termales", "link": "/es/explora/termales/112" },
+          "en": { "title": "Termales", "link": "/en/explora/termales/112" },
+          "pt": { "title": "Termales", "link": "/pt/explora/termales/112" }
+        },
+        {
+          "es": {
+            "title": "Música-Arte",
+            "link": "/es/explora/musica-arte/88"
+          },
+          "en": {
+            "title": "Música-Arte",
+            "link": "/en/explora/musica-arte/88"
+          },
+          "pt": { "title": "Música-Arte", "link": "/pt/explora/musica-arte/88" }
+        },
+        {
+          "es": { "title": "Senderismo", "link": "/es/explora/senderismo/64" },
+          "en": { "title": "Senderismo", "link": "/en/explora/senderismo/64" },
+          "pt": { "title": "Senderismo", "link": "/pt/explora/senderismo/64" }
+        },
+        {
+          "es": {
+            "title": "Biciturismo",
+            "link": "/es/explora/biciturismo/62"
+          },
+          "en": {
+            "title": "Biciturismo",
+            "link": "/en/explora/biciturismo/62"
+          },
+          "pt": { "title": "Biciturismo", "link": "/pt/explora/biciturismo/62" }
+        },
+        {
+          "es": { "title": "Gastronomía", "link": "/es/explora/gastronomia/6" },
+          "en": { "title": "Gastronomía", "link": "/en/explora/gastronomia/6" },
+          "pt": { "title": "Gastronomía", "link": "/pt/explora/gastronomia/6" }
+        }
+      ]
+    },
+    {
+      "es": {
+        "title": "Qué hacer",
+        "link": "/es/eventos/agenda-general-148"
+      },
+      "en": {
+        "title": "Qué hacer",
+        "link": "/en/eventos/agenda-general-148"
+      },
+      "pt": {
+        "title": "Qué hacer",
+        "link": "/pt/eventos/agenda-general-148"
+      },
+      "fr": {
+        "title": "Qué hacer",
+        "link": "/fr/eventos/agenda-general-148"
+      },
+      "children": [
+        {
+          "es": {
+            "title": "Ofertas y planes",
+            "link": "/es/plan-bogota/"
+          },
+          "en": {
+            "title": "Ofertas y planes",
+            "link": "/en/plan-bogota/"
+          },
+          "pt": {
+            "title": "Ofertas y planes",
+            "link": "/pt/plan-bogota/"
+          },
+          "fr": {
+            "title": "Ofertas y planes",
+            "link": "/fr/plan-bogota/"
+          }
+        },
+        {
+          "es": {
+            "title": "Eventos",
+            "link": "/es/eventos/agenda-general-148"
+          },
+          "en": {
+            "title": "Events",
+            "link": "/en/eventos/agenda-general-148"
+          },
+          "pt": {
+            "title": "Eventos",
+            "link": "/pt/eventos/agenda-general-148"
+          },
+          "fr": {
+            "title": "Eventos",
+            "link": "/fr/eventos/agenda-general-148"
+          }
+        },
+        {
+          "es": {
+            "title": "Festival por la igualdad",
+            "link": "/es/eventos/festival-por-la-igualdad-149"
+          },
+          "en": {
+            "title": "Festival por la igualdad",
+            "link": "/en/eventos/festival-por-la-igualdad-149"
+          },
+          "pt": {
+            "title": "Festival por la igualdad",
+            "link": "/pt/eventos/festival-por-la-igualdad-149"
+          },
+          "fr": {
+            "title": "Festival por la igualdad",
+            "link": "/fr/eventos/festival-por-la-igualdad-149"
+          }
+        },
+        {
+          "es": {
+            "title": "Blog",
+            "link": "/es/blog"
+          },
+          "en": {
+            "title": "Blog",
+            "link": "/en/blog"
+          },
+          "pt": {
+            "title": "Blog",
+            "link": "/pt/blog"
+          },
+          "fr": {
+            "title": "Blog",
+            "link": "/fr/blog"
+          }
+        }
+      ]
+    },
+    {
+      "es": {
+        "title": "Dónde dormir",
+        "link": "/es/hoteles"
+      },
+      "en": {
+        "title": "Dónde dormir",
+        "link": "/en/hoteles"
+      },
+      "pt": {
+        "title": "Dónde dormir",
+        "link": "/pt/hoteles"
+      },
+      "fr": {
+        "title": "Dónde dormir",
+        "link": "/fr/hoteles"
+      }
+    },
+    {
+      "es": {
+        "title": "Dónde comer",
+        "link": "/es/restaurantes"
+      },
+      "en": {
+        "title": "Dónde comer",
+        "link": "/en/restaurantes"
+      },
+      "pt": {
+        "title": "Dónde comer",
+        "link": "/pt/restaurantes"
+      },
+      "fr": {
+        "title": "Dónde comer",
+        "link": "/fr/restaurantes"
+      }
+    },
+
+    {
+      "es": {
+        "title": "Información Útil",
+        "link": "/es/preguntas-frecuentes"
+      },
+      "en": {
+        "title": "Información Útil",
+        "link": "/en/preguntas-frecuentes"
+      },
+      "pt": {
+        "title": "Informação útil",
+        "link": "/pt/preguntas-frecuentes"
+      }
+    }
+  ]
+}

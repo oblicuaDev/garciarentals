@@ -1,0 +1,358 @@
+:root {
+  --dark-body-bg: #efefef;
+  --light-body-bg: #000;
+
+  --dark-input: #efefef;
+  --light-input: #000;
+
+  --dark-border: #484d5a;
+  --light-border: #b8bccb;
+
+  --dark-date-foreground: #000;
+  --dark-inactive-fg: #636a78;
+  --dark-active-fg: #000;
+  --dark-current-year: #000;
+  --dark-current-year-fg: #000;
+  --dark-selected: #8bf740;
+  --dark-hover: #8bf740;
+  --dark-arrows-bg: #000;
+  --dark-arrows-fill: #333641;
+}
+
+.date_picker {
+  width: calc(50% - 10px);
+  position: relative;
+}
+
+.date_picker_input {
+  margin-bottom: 8px;
+  position: relative;
+}
+span {
+  label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
+  & > label {
+    text-transform: uppercase;
+  }
+}
+
+.date {
+  color: var(--dark-date-foreground);
+  font-size: 14px;
+  padding: 10px;
+}
+
+.date:hover {
+  cursor: pointer;
+}
+
+.date.onFocus:focus {
+  outline: none;
+}
+
+.date_picker_input.showCal:after {
+  transform: rotate(180deg);
+}
+
+.date_picker_calendar {
+  min-height: fit-content;
+  overflow: hidden;
+  padding: 12px;
+}
+
+.date,
+.date_picker_calendar {
+  background: var(--dark-input);
+  width: 100%;
+}
+
+/* 
+  * calendar body
+  */
+
+.calendar_header {
+  width: 100%;
+  min-height: 30px;
+  margin-bottom: 8px;
+  color: var(--dark-date-foreground);
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  justify-content: space-between;
+}
+
+.cal-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  padding: 0;
+  margin: 0;
+  border-radius: 6px;
+}
+
+.cal-btn img {
+  width: 42%;
+  height: 42%;
+}
+
+.cal-btn.back img {
+  transform: rotate(90deg);
+}
+
+.cal-btn.front img {
+  transform: rotate(-90deg);
+}
+
+.cal_days,
+.calendar_main {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  row-gap: 5px;
+  column-gap: 5px;
+  color: var(--dark-inactive-fg);
+}
+
+.cal_days {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.calendar_main {
+  grid-template-rows: repeat(5, min(30px));
+}
+
+.cell_wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  position: relative;
+}
+
+.current {
+  color: var(--dark-current-year-fg);
+}
+
+.current:not(.active):hover {
+  background: var(--dark-hover);
+  color: var(--dark-date-foreground);
+  border: 2px solid var(--dark-selected);
+}
+
+.cal-btn:hover,
+.current:hover {
+  cursor: pointer;
+}
+.date_picker .active {
+  background: var(--dark-selected);
+  color: var(--dark-date-foreground);
+}
+
+.inactive_indicator:after {
+  /*   text-decoration: underline; */
+  content: "";
+  width: 5px;
+  height: 5px;
+  background: #8bf740;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.hidden {
+  visibility: hidden;
+}
+.cart {
+  small {
+    display: block;
+    text-align: center;
+    margin: 30px auto 50px;
+  }
+  main {
+    & > .container {
+      display: flex;
+      justify-content: space-between;
+      @media only screen and (max-width: 768px) {
+        flex-direction: column-reverse;
+        padding: 0;
+      }
+      form {
+        max-width: 450px;
+        width: 100%;
+        @media only screen and (max-width: 768px) {
+          max-width: 100%;
+          padding: 20px;
+        }
+        & > span {
+          display: block;
+          width: 100%;
+          margin-bottom: 50px;
+          label {
+            width: 100%;
+            font-size: 16px;
+            line-height: 16px;
+            margin-bottom: 15px;
+            font-weight: 300;
+          }
+          input {
+            width: 100%;
+            color: rgba($color: #000000, $alpha: 0.5);
+            font-size: 14px;
+            border-bottom: 1px solid #000;
+            &::placeholder {
+              color: rgba($color: #000000, $alpha: 0.3);
+            }
+          }
+          &.rodaje {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+          }
+        }
+        button {
+          width: 100%;
+          max-width: 100%;
+          margin: 15px 0;
+        }
+      }
+    }
+    .cartItems {
+      max-width: 400px;
+      width: 100%;
+      padding: 0 77px 30px;
+      max-height: 100vh;
+      overflow: auto;
+      @media only screen and (max-width: 768px) {
+        max-width: 100%;
+        padding: 0 20px;
+        max-height: none;
+      }
+      /* width */
+      &::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      /* Track */
+      &::-webkit-scrollbar-track {
+        background-color: #ccc;
+        border-radius: 0px;
+      }
+
+      /* Handle */
+      &::-webkit-scrollbar-thumb {
+        background: gray;
+        border-radius: 0px;
+      }
+
+      /* Handle on hover */
+      &::-webkit-scrollbar-thumb:hover {
+        background: #ccc;
+      }
+      h2 {
+        font-weight: 300;
+        font-size: 16px;
+        line-height: 16px;
+        color: #000;
+      }
+      ul {
+        li {
+          padding: 22px 0;
+          border-bottom: 1px solid rgba($color: #000000, $alpha: 0.1);
+          @media only screen and (max-width: 768px) {
+            display: flex;
+            gap: 20px;
+          }
+          img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            @media only screen and (max-width: 768px) {
+              width: 65%;
+            }
+          }
+          .actions {
+            @media only screen and (max-width: 768px) {
+              width: 50%;
+            }
+            .name {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              padding: 0 0 8px;
+              @media only screen and (max-width: 768px) {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+                white-space: nowrap;
+              }
+              small {
+                margin: 0;
+                font-weight: 300;
+                font-size: 16px;
+                color: #000;
+                white-space: normal;
+                text-align: left;
+                display: block;
+                line-height: 20px;
+              }
+              .quantityCounter {
+                display: flex;
+                align-items: center;
+                width: fit-content;
+
+                .inputQuantity {
+                  width: 40px;
+                  margin: 0 8px 0px 4px;
+                  text-align: left;
+                  background-color: transparent;
+                  font-size: 16px;
+                  font-weight: 300;
+                  cursor: default;
+                  user-select: none;
+                }
+
+                .btnQuantity {
+                  cursor: pointer;
+                  &:first-of-type {
+                    margin-right: 4px;
+                  }
+                }
+              }
+            }
+            button.delete {
+              font-weight: 300;
+              font-size: 11px;
+              text-decoration: underline;
+              color: #000;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.datepicker {
+}
+.datepicker__header {
+  height: auto !important;
+}
+.datepicker__wrapper {
+  background-color: #efefef;
+}
+.datepicker__day:hover div,
+.is-selected {
+  background-color: var(--dark-selected) !important;
+  div {
+    background-color: var(--dark-selected) !important;
+  }
+}
+
+.is-today .datepicker__daynum {
+  text-decoration-color: var(--dark-selected) !important;
+}

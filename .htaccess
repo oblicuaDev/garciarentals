@@ -1,0 +1,19 @@
+RewriteEngine On
+RewriteBase /
+
+RewriteRule ^$ /es [R=301,L]
+# Check if the requested file or directory exists
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+
+# Spanish URL rewriting
+RewriteRule ^([a-zA-Z0-9_-]+)/s/([^/]+)/?$ set/$2.php?lang=$1 [L,QSA]
+RewriteRule ^([a-zA-Z0-9_-]+)/g/([^/]+)/?$ get/$2.php?lang=$1 [L,QSA]
+RewriteRule ^([a-zA-Z0-9_-]+)/b/([^/]+)/?$ boxes/$2.php?lang=$1 [L,QSA]
+
+RewriteRule ^([a-zA-Z0-9_-]+)$ index.php?lang=$1 [L,QSA]
+RewriteRule ^([a-zA-Z0-9_-]+)/equipos$ list.php?lang=$1 [L,QSA]
+RewriteRule ^([a-zA-Z0-9_-]+)/equipos/([a-zA-Z0-9_-]+)/([0-9]+)/([a-zA-Z0-9_-]+)-([0-9]+)$ intern.php?lang=$1&idEquipo=$5&idCat=$3&nameCat=$2 [L,QSA]
+RewriteRule ^([a-zA-Z0-9_-]+)/clientes$ clients.php?lang=$1 [L,QSA]
+RewriteRule ^([a-zA-Z0-9_-]+)/carrito$ cart.php?lang=$1 [L,QSA]
+RewriteRule ^([a-zA-Z0-9_-]+)/buscar$ search.php?lang=$1 [L,QSA]
