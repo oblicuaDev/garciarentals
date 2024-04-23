@@ -1,34 +1,41 @@
 <?php $classBody = "cart"; include 'includes/head.php'; ?>
 <?php include 'includes/header.php'; ?> 
     <main>
-        <small>Carrito</small>
+        <small><?=$sdk->palabras[20]?></small>
         <div class="container">
-            <form action="/<?=$lang?>/s/leads/" id="cartInfo" method="POST">
+            <form action="/<?=$lang?>/s/leads/" id="cartInfo" method="POST" autocomplete="off">
                 <span>
-                    <label for="name">Nombre</label>
-                    <input type="text" name="name" id="name" placeholder="Tu nombre">
+                    <label for="name"><?=$sdk->palabras[21]?></label>
+                    <input type="text" name="name" id="name" placeholder="<?=$sdk->palabras[22]?>">
                 </span>
                 <span>
-                    <label for="email">Correo Electrónico</label>
-                    <input type="email" name="email" id="email" placeholder="tunombre@example.com">
+                    <label for="email"><?=$sdk->palabras[23]?></label>
+                    <input type="email" name="email" id="email" placeholder="<?=$sdk->palabras[24]?>">
                 </span>
                 <span>
-                    <label for="phone">Número telefónico</label>
+                    <label for="phone"><?=$sdk->palabras[25]?></label>
                     <input type="tel" name="phone" id="phone" placeholder="1234567890">
                 </span>
                 <span class="rodaje">
-                    <label for="">Fechas de Rodaje</label>
-                    <div class="date_picker"><input type="text" name="datepicker" id="datepicker"></div>
-                    <div class="date_picker"><input type="text" name="datepicker2" id="datepicker2"></div>
+                    <label for=""><?=$sdk->palabras[26]?></label>
+                    <span>
+                        <label for="datepicker">Desde:</label>
+                        <div class="date_picker"><input type="text" readonly name="datepicker" id="datepicker"><span class="arrow-down"></span></div>
+                    </span>
+                    <span>
+                        <label for="datepickerend">Hasta:</label>
+                        <div class="date_picker"><input type="text" readonly name="datepickerend" id="datepickerend"><span class="arrow-down"></span></div>
+
+                    </span>
                 </span>
                 <input type="hidden" name="content" id="content" value="">
                 <input type="hidden" name="equipos" id="equipos">
                 <input type="hidden" name="idioma" id="idioma" value="<?=$lang?>">
-                <button class="listado uppercase btn" type="buton" onclick="sendList()">Recibir listado</button>
-                <button class="listado uppercase btn go-cotizacion" type="submit">Solicitar cotizacion</button>
+                <button class="listado uppercase btn" type="submit" onclick="sendList()"><?=$sdk->palabras[27]?></button>
+                <button class="listado uppercase btn go-cotizacion" type="submit"><?=$sdk->palabras[28]?></button>
             </form>
             <div class="cartItems">
-                <h2 class="uppercase">Tu Cotización</h2>
+                <h2 class="uppercase"><?=$sdk->palabras[29]?></h2>
                 <ul>
                 </ul>
             </div>

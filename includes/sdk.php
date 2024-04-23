@@ -37,16 +37,14 @@ class Garcia {
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
-    
+        curl_setopt($ch, CURLOPT_HTTPHEADER,  array(
+            'Content-Type: application/json',
+            'Authorization: Basic ZGV2ZWxvcGVyOjYxeFEgTkZDUyBvMzVDIG1nZkQgWHZxMiBNYlph'
+          ));
         // Set request body for POST and PUT methods
         if ($method === "POST" || $method === "PUT") {
             curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
         }
-    
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'Content-Type: application/json',
-            'Authorization: Basic ZGV2ZWxvcGVyOmEzWGggd2VnQiBlSWRsIHFpczMgUUJ2MCBSWnZj'
-        ));
     
         if ($cache) {
             $filetitle = $this->get_alias($endpoint) . ".json";
@@ -71,9 +69,20 @@ class Garcia {
             $output = curl_exec($ch);
             $request = json_decode($output);
             curl_close($ch);
+            // var_dump($output);
             return $request;
         }
     }
+
+    function replaceUrl($url) {
+		// Obtenemos la parte de la URL después del dominio
+		$path = parse_url($url, PHP_URL_PATH);
+		// Quitamos '/wp-content/uploads/' del path
+		$path = preg_replace('/\/wp-content\/uploads\//', '/', $path);
+		// Reemplazamos la parte de la URL con 'files.garciarental.co'
+		$newUrl = 'https://files.garciarental.co' . $path;	
+		return $newUrl;
+	}
 
     function getPalabras(){
             $palabras = $this->query("garcia-interfaz?field=idioma&value=".$this->language);
@@ -82,14 +91,17 @@ class Garcia {
             $palabras = $texts;
             return $palabras;
     }
-    
+    function getPageCulturaBold($id){
+        $result = $this->query("pages/$id");
+        return $result;
+    }
     function gHomeInfo(){
         $gnrl = array();
-        if(isset($_SESSION[$this->language]['gHomeInfo'])){
-			$gnrl["es"] = $_SESSION["es"]['gHomeInfo'];
-			$gnrl["en"] = $_SESSION["en"]['gHomeInfo'];
-			$gnrl["de"] = $_SESSION["de"]['gHomeInfo'];
-		} else {
+        // if(isset($_SESSION[$this->language]['gHomeInfo'])){
+		// 	$gnrl["es"] = $_SESSION["es"]['gHomeInfo'];
+		// 	$gnrl["en"] = $_SESSION["en"]['gHomeInfo'];
+		// 	$gnrl["de"] = $_SESSION["de"]['gHomeInfo'];
+		// } else {
             $resultES = $this->query("pages/1709");
             $resultEN = $this->query("pages/1762");
             $resultDE = $this->query("pages/1764");
@@ -98,10 +110,10 @@ class Garcia {
             $gnrl["en"] = $resultEN;
             $gnrl["de"] = $resultDE;
 
-			$_SESSION["es"]['gHomeInfo'] = $resultES;
-			$_SESSION["en"]['gHomeInfo'] = $resultEN;
-			$_SESSION["de"]['gHomeInfo'] = $resultDE;
-		}
+		// 	$_SESSION["es"]['gHomeInfo'] = $resultES;
+		// 	$_SESSION["en"]['gHomeInfo'] = $resultEN;
+		// 	$_SESSION["de"]['gHomeInfo'] = $resultDE;
+		// }
 		return $gnrl;
 	}
     function gInfo(){
@@ -114,10 +126,13 @@ class Garcia {
 		}
 		return $gnrl;
 	}
-    function gEquipos($categoria){
-        if(isset($categoria)){
-            $result = $this->query("garcia-grupos?field=categoria&value=".$categoria);    
-        }else{
+    function gEquipos($categoria, $exclude){
+        if(isset($categoria) && isset($exclude)){
+            $result = $this->query("garcia-grupos?categories=$categoria&exclude=$exclude");    
+        }else if(isset($categoria) && !isset($exclude)){
+            $result = $this->query("garcia-grupos?categories=$categoria");    
+        }
+        else{
             $result = $this->query("garcia-grupos");    
         }
         return $result;
@@ -302,20 +317,16 @@ class Garcia {
 
         return ($String);
     }
-    function create_metas($seoId){
+    function create_metas($seoId = '45', $type = "pages"){
         $canonicalURL = "http://".$_SERVER[HTTP_HOST].$_SERVER[REQUEST_URI];
-        if ($seoId == '') {
-            $seoId = 4;
-        }
-        $seo = $this->query("seo/" . $seoId);
-        $seo = $seo[0];
+        $seo = $this->query("{$type}/{$seoId}");
         global $metas, $urlMap;
         
         $ret = '';
-        $metas['title'] = $seo->field_seo_title;
-        $metas['desc'] = $seo->field_seo_desc;
-        $metas['words'] = $seo->field_seo_keys;
-        $metas['img'] = "https://www.bogotadc.travel" . $seo->field_seo_img;
+        $metas['title'] = $seo->acf->titulo_seo;
+        $metas['desc'] = $seo->acf->descripcion_seo;
+        $metas['words'] = $seo->acf->palabras_clave;
+        $metas['img'] = $seo->acf->imagen_seo;
 
         // list($width, $height, $type, $attr) = getimagesize("https://www.bogotadc.travel" . $seo->field_seo_img);
 

@@ -10,6 +10,20 @@
   //   left: 50%;
   //   transform: translateX(-50%);
   // }
+  .noresults {
+    min-height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    h2 {
+      text-align: center;
+      margin: 0 auto;
+      width: 100%;
+      font-size: 30px;
+      max-width: 768px;
+      line-height: 60px;
+    }
+  }
   main {
     small {
       display: block;
@@ -227,13 +241,13 @@
                 line-height: 26px;
               }
               &::after {
-                background-image: url(../img/marcador.png);
+                background-color: #8afe2a;
                 content: "";
                 background-size: contain;
                 background-position: center center;
                 background-repeat: no-repeat;
                 width: 120%;
-                height: 97px;
+                height: 8px;
                 transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
               }
             }

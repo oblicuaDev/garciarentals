@@ -30,18 +30,18 @@
       }
       &::after {
         position: absolute;
-        top: 50%;
+        top: 55%;
         left: 50%;
         z-index: -1;
         transform: translate(-50%, -50%);
-        background-image: url(../img/marcador.png);
+        background-color: #8afe2a;
         content: "";
         background-size: contain;
         background-position: center center;
         background-repeat: no-repeat;
         max-width: 280px;
         width: 100%;
-        height: 97px;
+        height: 8px;
         transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         @media only screen and (max-width: 768px) {
           width: 70%;
@@ -52,8 +52,12 @@
       &__slide {
         img {
           width: 100%;
-          max-height: 700px;
+          height: 580px;
           object-fit: contain;
+          background: #fff;
+          @media only screen and (max-width: 768px) {
+            height: 100vw;
+          }
         }
       }
     }
@@ -68,6 +72,7 @@
         width: 100%;
         object-fit: contain;
         height: 350px;
+        background-color: #fff;
         @media only screen and (max-width: 768px) {
           grid-row: 2;
         }
@@ -125,6 +130,12 @@
         span {
           margin-top: 25px;
           display: block;
+          width: 140px;
+        }
+        &:nth-child(2) {
+          span {
+            text-align: right;
+          }
         }
         &:hover {
           &::before {

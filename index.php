@@ -1,6 +1,6 @@
 <?php $classBody = "home"; include 'includes/head.php'; ?>
 <?php include 'includes/header.php'; ?>
-<video src="<?=$sdk->infoGnrl->acf->video_para_el_home?>" autoplay loop muted playsinline></video>
+<video src="<?=$sdk->replaceUrl($sdk->infoGnrl->acf->video_para_el_home)?>" autoplay loop muted playsinline></video>
 <main>
     <section class="container outside">
         <h2 data-aos-duration="800" data-aos="fade-down"><?=$sdk->homeInfo[$lang]->acf->titulo_acerca_de?></h2>
@@ -23,7 +23,7 @@
                 }
             }
            ?>
-            <a href="/<?=$lang?>/equipos" class="btn btn-more uppercase" data-aos-duration="800" data-aos="fade-up"><?=$sdk->homeInfo[$lang]->acf->texto_boton_acerca_de?></a>
+            <a href="/<?=$lang?>/equipos?activeIndex=0" class="btn btn-more uppercase" data-aos-duration="800" data-aos="fade-up"><?=$sdk->homeInfo[$lang]->acf->texto_boton_acerca_de?></a>
         </div>
     </section>
     <div class="marquee">
@@ -32,28 +32,41 @@
     <section class="container services">
         <h4 data-aos-duration="800" data-aos="fade-right"><?=$sdk->homeInfo[$lang]->acf->titulo_nuestro_servicio?></h4>
         <ul data-aos-duration="800" data-aos="fade-left">
-            <li> <span>01</span><a href=""><?=$sdk->palabras[3]?></a></li>
-            <li> <span>02</span><a href=""><?=str_replace("cotización", "<small>cotización</small>", $sdk->palabras[4]);?></a></li>
-            <li> <span>03</span><a href=""><?=$sdk->palabras[5]?></a></li>
+        <?php 
+            // Replace "cotización" with "<small>cotización</small>" in the original string
+            $string_with_small_cotizacion = str_replace("cotización", "<small>cotización</small>", $sdk->homeInfo[$lang]->acf->servicios_home);
+
+            // Remove leading and trailing whitespace and split the string by line breaks
+            $lines = explode("\n", trim($string_with_small_cotizacion));
+
+            // Remove empty lines
+            $lines = array_filter($lines);
+
+            for ($i=0; $i < count($lines); $i++) { 
+                $service = $lines[$i];
+                $number = sprintf("%02d", $i + 1); // Adding 1 to start from 01
+        ?>
+            <li> <span><?=$number?></span><?=$service?></li>
+        <?php } ?>
         </ul>
     </section>
     <section class="container circle-container">
         <h5 data-aos-duration="800" data-aos="fade-down"><?=$sdk->homeInfo[$lang]->acf->titulo_desafio?></h5>
         <div class="menu-container">
             <div class="circle" id="circle">
-                <div class="slice" onclick="window.location = '/<?=$lang?>/equipos?activeIndex=1'"></div>
-                <div class="slice" onclick="window.location = '/<?=$lang?>/equipos?activeIndex=2'"></div>
-                <div class="slice" onclick="window.location = '/<?=$lang?>/equipos?activeIndex=3'"></div>
-                <div class="slice" onclick="window.location = '/<?=$lang?>/equipos?activeIndex=4'"></div>
-                <div class="slice" onclick="window.location = '/<?=$lang?>/equipos?activeIndex=5'"></div>
-                <div class="slice" onclick="window.location = '/<?=$lang?>/equipos?activeIndex=0'"></div>
+                <div class="slice" data-equipos="optica" onclick="window.location = '/<?=$lang?>/equipos?activeIndex=1'"></div>
+                <div class="slice" data-equipos="videoAssist" onclick="window.location = '/<?=$lang?>/equipos?activeIndex=2'"></div>
+                <div class="slice" data-equipos="DIT" onclick="window.location = '/<?=$lang?>/equipos?activeIndex=3'"></div>
+                <div class="slice" data-equipos="Foquista" onclick="window.location = '/<?=$lang?>/equipos?activeIndex=4'"></div>
+                <div class="slice" data-equipos="Transporte" onclick="window.location = '/<?=$lang?>/equipos?activeIndex=5'"></div>
+                <div class="slice" data-equipos="Camara" onclick="window.location = '/<?=$lang?>/equipos?activeIndex=0'"></div>
             </div>
 
             <img src="img/circle.svg" alt="circle">
         </div>
         <div class="info" data-aos-duration="800" data-aos="fade-up">
             <?=$sdk->homeInfo[$lang]->acf->texto_desafio?>
-            <a href="" class="link"><?=$sdk->homeInfo[$lang]->acf->texto_boton_desafio?></a>
+            <a href="/<?=$lang?>/manifiesto" class="link"><?=$sdk->homeInfo[$lang]->acf->texto_boton_desafio?></a>
         </div>
     </section>
     <section class="container garciaFaq">

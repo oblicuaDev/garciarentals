@@ -7,14 +7,14 @@
     <button type="button" class="left">
       <img src="img/Manu.svg" alt="out" width="50px" />
       <div class="menu">
-        <a href="<?=$lang?>/equipos"><?=$sdk->palabras[0] ?></a>
-        <a href=""><?=$sdk->palabras[1]?></a>
+        <a href="<?=$lang?>/equipos?activeIndex=0"><?=$sdk->palabras[0] ?></a>
+        <a href="<?=$lang?>/manifiesto"><?=$sdk->palabras[1]?></a>
         <a href="<?=$lang?>/clientes"><?=$sdk->palabras[2]?></a>
       </div>
     </button>
     <a href="">
       <img
-        src="<?=$sdk->infoGnrl->acf->logo?>"
+        src="<?=$sdk->replaceUrl($sdk->infoGnrl->acf->logo)?>"
         alt="logo"
         class="logo"
         height="40"
@@ -40,7 +40,7 @@
         <ul class="dropdown-content" id="dropdown-content"></ul>
       </div>
       <div id="cart">
-        <a href="/<?=$lang?>/carrito">
+        <a href="/<?=$lang?>/equipos?activeIndex=0">
           <img src="img/Menucot.svg" alt="cart" />
         </a>
       </div>
@@ -48,8 +48,8 @@
   </div>
   <div class="mobilemenu">
     <div class="links">
-      <a href="<?=$lang?>/equipos"><?=$sdk->palabras[0]?></a>
-      <a href=""><?=$sdk->palabras[1]?></a>
+      <a href="<?=$lang?>/equipos?activeIndex=0"><?=$sdk->palabras[0]?></a>
+      <a href="<?=$lang?>/manifiesto"><?=$sdk->palabras[1]?></a>
       <a href="<?=$lang?>/clientes"><?=$sdk->palabras[2]?></a>
     </div>
     <div class="search">
@@ -59,7 +59,7 @@
       <form
         autocomplete="off"
         id="searchFormMobile"
-        action="/<?=$lang?>buscar"
+        action="/<?=$lang?>/buscar"
         method="get"
       >
         <input type="search" name="search" id="search" value="<?=$search?>" />

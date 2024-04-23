@@ -6,6 +6,10 @@
     margin: 30px auto;
   }
   .focusRing {
+    margin: 0 auto;
+    max-width: 1168px;
+    width: 100%;
+    padding: 0 20px;
     position: relative;
     .lines {
       display: flex;
@@ -33,13 +37,15 @@
     .swiper-button-next {
       position: absolute;
       top: 0;
-      width: 60px;
       display: flex;
       align-items: center;
       justify-content: center;
       height: 60px;
       z-index: 10;
       cursor: pointer;
+      @media only screen and (max-width: 768px) {
+        top: -2px;
+      }
       img {
         width: 20px;
         height: 20px;
@@ -63,7 +69,14 @@
       bottom: 0;
       z-index: 2;
       width: 30%;
-      background: linear-gradient(to left, transparent, #fafafa);
+      background: linear-gradient(
+        to left,
+        transparent,
+        rgba(250, 250, 250, 0.5),
+        rgba(250, 250, 250, 0.8),
+        #fafafa,
+        #fafafa
+      );
       pointer-events: none;
     }
     &::before {
@@ -73,7 +86,14 @@
     &::after {
       right: 0;
       left: auto;
-      background: linear-gradient(to right, transparent, #fafafa);
+      background: linear-gradient(
+        to right,
+        transparent,
+        rgba(250, 250, 250, 0.5),
+        rgba(250, 250, 250, 0.8),
+        #fafafa,
+        #fafafa
+      );
     }
     .swiper-slide {
       align-items: center;
@@ -91,29 +111,33 @@
       }
     }
     .swiper-slide-active {
-      font-size: 32px;
+      font-size: 25px;
       position: relative;
       font-weight: 500;
       transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-      @media only screen and (max-width: 768px) {
+      @media only screen and (min-width: 767px) {
         font-size: 18px;
-        line-height: 18px;
+      }
+      @media only screen and (max-width: 768px) {
+        font-size: 16px;
+        line-height: 20px;
       }
       &::after {
-        background-image: url(../img/marcador.png);
+        background-color: #8afe2a;
         content: "";
         background-size: contain;
         background-position: center center;
         background-repeat: no-repeat;
-        width: 300px;
+        width: 140px;
         position: absolute;
-        height: 100%;
-        top: 50%;
+        height: 8px;
+        top: 55%;
         transform: translate(-50%, -50%);
         transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         left: 50%;
         z-index: -1;
         @media only screen and (max-width: 768px) {
+          top: 44%;
           width: 100%;
         }
       }
@@ -167,13 +191,14 @@
           }
         }
         p {
-          font-size: 26px;
+          font-size: 22px;
           line-height: 21px;
           margin: 15px 0;
           text-align: center;
           text-transform: uppercase;
           @media only screen and (max-width: 768px) {
-            font-size: 18px;
+            font-size: 14px;
+            line-height: 18px;
           }
         }
         &:hover {

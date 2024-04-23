@@ -1,13 +1,9 @@
 // Recuperar la información existente de localStorage
-let activeMenuContent = false;
 let itemsOnCart = JSON.parse(localStorage.getItem("itemsOnCart")) || [];
-
-if (itemsOnCart.length == 0) {
-  document.querySelector(
-    "#cart a"
-  ).href = `/${actualLang}/equipos?activeIndex=0`;
-} else {
-  document.querySelector("#cart a").href = `/${actualLang}/carrito`;
+if (document.querySelector("body.cart")) {
+  if (itemsOnCart.length == 0) {
+    history.back();
+  }
 }
 function replaceUrl(url) {
   if (url) {
@@ -402,25 +398,6 @@ async function fakeFetch(category) {
 let productosObtenidos = false; // Variable para rastrear si los productos ya han sido obtenidos
 var swiper;
 let initialized = false;
-const cursor = document.querySelector(".cursor");
-const links = document.querySelectorAll("ul.links li");
-
-const onMouseMove = (e) => {
-  cursor.style.top = e.pageY + "px";
-  cursor.style.left = e.pageX + "px";
-};
-
-links.forEach((l) => {
-  l.addEventListener("mouseleave", () => {
-    cursor.classList.remove("cursor-link");
-  });
-  l.addEventListener("mouseover", () => {
-    cursor.classList.add("cursor-link");
-  });
-});
-
-window.addEventListener("mousemove", onMouseMove);
-
 document.addEventListener("DOMContentLoaded", () => {
   if (document.querySelector(".mySwiper")) {
     const urlParams = new URLSearchParams(window.location.search);
@@ -479,19 +456,17 @@ document.addEventListener("DOMContentLoaded", () => {
           // Llamar a la función al cargar la página y al cambiar el tamaño de la ventana
           window.addEventListener("DOMContentLoaded", createLines);
           window.addEventListener("resize", createLines);
-          const slideButtons = document.querySelectorAll(".swiper-slide");
-          // Itera sobre cada botón y agrega un controlador de evento click
-          slideButtons.forEach((button, index) => {
-            button.addEventListener("click", () => {
-              swiper.slideTo(index, 600, true);
-            });
-          });
         },
         slideChangeTransitionEnd: function () {
           if (
             document.querySelector(".list .mySwiper .swiper-slide-active")
               .dataset.index != currentIndex
           ) {
+            console.log(
+              "CHANGE INDEX",
+              document.querySelector(".list .mySwiper .swiper-slide-active")
+                .dataset.index
+            );
             obtenerProductos(
               texts[
                 document.querySelector(".list .mySwiper .swiper-slide-active")
@@ -501,12 +476,6 @@ document.addEventListener("DOMContentLoaded", () => {
             currentIndex = document.querySelector(
               ".list .mySwiper .swiper-slide-active"
             ).dataset.index;
-            const newUrl = updateQueryStringParameter(
-              "activeIndex",
-              document.querySelector(".list .mySwiper .swiper-slide-active")
-                .dataset.index
-            );
-            history.pushState({}, "", newUrl);
           }
         },
       },
@@ -569,11 +538,9 @@ async function obtenerProductos(categoria) {
           } else {
             IDCategory = 0;
           }
-          // Convert array to comma-separated text
-          const categories = producto.categories.join("-");
           let template = `<li><a href="/${actualLang}/equipos/${get_alias(
             categoria
-          )}/${IDCategory}/${categories}/${get_alias(producto.slug)}-${
+          )}/${IDCategory}/${get_alias(producto.slug)}-${
             producto.id
           }"><div class="image"><img src="${image}" alt="1" class="front"><img class="hover" src="${image2}" alt="1"></div><p>${
             producto.title.rendered
@@ -669,7 +636,6 @@ const handleMouseLeave = () => {
   const mainElement = document.querySelector("main");
   const sourceImageElement = document.getElementById("sourceImage");
   mainElement.style.backgroundColor = "rgba(255,255,255,0)";
-  mainElement.style.backgroundImage = "none";
   sourceImageElement.style.opacity = 0;
   const listItems = document.querySelectorAll("li");
   listItems.forEach((item) => {
@@ -732,6 +698,7 @@ async function getAllClients() {
       acf: { imagen, year, color },
     } = client;
     let template = `<li data-image="${imagen}" data-color="${color}"><p>${rendered}<span>${year}</span></p></li>`;
+    console.log(template);
     document.querySelector(".clients main ul").innerHTML += template;
   });
   // Attach event listeners
@@ -751,60 +718,41 @@ function clearAll() {
   window.location.href = `/${actualLang}`;
 }
 
+function obtenerElementosAleatorios(array, idGuardado) {
+  // Filtrar el array para excluir el elemento con el mismo ID
+  var elementosFiltrados = array.filter(function (elemento) {
+    return elemento.id !== idGuardado;
+  });
+
+  // Obtener dos elementos aleatorios del array filtrado
+  var elementosAleatorios = [];
+  for (var i = 0; i < 2; i++) {
+    var randomIndex = Math.floor(Math.random() * elementosFiltrados.length);
+    elementosAleatorios.push(elementosFiltrados[randomIndex]);
+    elementosFiltrados.splice(randomIndex, 1); // Eliminar el elemento seleccionado para que no se repita
+  }
+
+  return elementosAleatorios;
+}
+
 async function fetchCategory(category) {
-  let convertedIdCat = categoryIntern.split("-").join(",");
   document.querySelector("nav").innerHTML = "";
   let info;
   if (category) {
-    info = await fetch(`/${actualLang}/g/getEquipos/?cat=${convertedIdCat}`);
+    info = await fetch(`/${actualLang}/g/getEquipos/?cat=${category}`);
+  } else {
+    info = await fetch(`/${actualLang}/g/getEquipos/`);
   }
   let data = await info.json();
-  data = data.sort((a, b) => parseInt(a.acf.orden) - parseInt(b.acf.orden));
+  var elementosAleatorios = obtenerElementosAleatorios(data, equipoActivo.id);
 
-  // Obtener el índice del equipo actual
-  const currentIndex = data.findIndex((elemento) => {
-    return elemento.id === parseInt(document.querySelector("main").dataset.id);
+  elementosAleatorios.forEach((elemento) => {
+    document.querySelector(
+      "nav"
+    ).innerHTML += `<a href="/${actualLang}/equipos/${nameCategoryIntern}/${category}/${get_alias(
+      elemento.slug
+    )}-${elemento.id}"><span>${elemento.title.rendered}</span></a>`;
   });
-
-  // Verificar si hay un elemento anterior
-  if (currentIndex > 0) {
-    const elementoAnterior = data[currentIndex - 1];
-    document.querySelector(
-      "nav"
-    ).innerHTML += `<a href="/${actualLang}/equipos/${nameCategoryIntern}/${categoryIndex}/${categoryIntern}/${get_alias(
-      elementoAnterior.slug
-    )}-${elementoAnterior.id}"><span>${
-      elementoAnterior.title.rendered
-    }</span></a>`;
-  } else {
-    // Si el equipo actual es el primero, mostrar el último como anterior
-    const ultimoElemento = data[data.length - 1];
-    document.querySelector(
-      "nav"
-    ).innerHTML += `<a href="/${actualLang}/equipos/${nameCategoryIntern}/${categoryIndex}/${categoryIntern}/${get_alias(
-      ultimoElemento.slug
-    )}-${ultimoElemento.id}"><span>${ultimoElemento.title.rendered}</span></a>`;
-  }
-
-  // Verificar si hay un elemento siguiente
-  if (currentIndex < data.length - 1) {
-    const elementoSiguiente = data[currentIndex + 1];
-    document.querySelector(
-      "nav"
-    ).innerHTML += `<a href="/${actualLang}/equipos/${nameCategoryIntern}/${categoryIndex}/${categoryIntern}/${get_alias(
-      elementoSiguiente.slug
-    )}-${elementoSiguiente.id}"><span>${
-      elementoSiguiente.title.rendered
-    }</span></a>`;
-  } else {
-    // Si el equipo actual es el último, mostrar el primero como siguiente
-    const primerElemento = data[0];
-    document.querySelector(
-      "nav"
-    ).innerHTML += `<a href="/${actualLang}/equipos/${nameCategoryIntern}/${categoryIndex}/${categoryIntern}/${get_alias(
-      primerElemento.slug
-    )}-${primerElemento.id}"><span>${primerElemento.title.rendered}</span></a>`;
-  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -824,15 +772,23 @@ document.addEventListener("DOMContentLoaded", () => {
     .reverse()
     .join("-");
 
+  if (document.querySelector("#datepicker")) {
+    document.querySelector("#datepicker").value = formattedDate;
+  }
+  if (document.querySelector("#datepickerend")) {
+    document.querySelector("#datepickerend").value = formattedDate;
+  }
   if (document.querySelector(".intern")) {
     addClickAddBtn();
-    fetchCategory(nameCategoryIntern);
+    fetchCategory(
+      categoryIntern && categoryIntern != "all" ? categoryIntern : null
+    );
 
     document.querySelector(".intern main small a").innerHTML =
-      texts[categoryIndex];
+      texts[categoryIntern];
     document.querySelector(
       ".intern main small a"
-    ).href = `/es/equipos?activeIndex=${categoryIndex}`;
+    ).href = `/es/equipos?activeIndex=${categoryIntern}`;
   }
   document
     .querySelector(".search button#search")
@@ -895,17 +851,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     dropdownBtn.innerHTML = `${langName}<span class="arrow-down"></span>`;
   }
-
-  dropdownBtn.addEventListener("click", () => {
-    console.log(activeMenuContent);
-    if (activeMenuContent) {
-      dropdownContent.style.display = "none";
-      activeMenuContent = false;
-    } else {
-      dropdownContent.style.display = "block";
-      activeMenuContent = true;
-    }
-  });
 
   setSelectedLocale(locales[0]);
   const browserLang = actualLang;
@@ -993,65 +938,38 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 $.validator.addMethod(
   "greaterThanDatepicker",
-  function greaterThanDatepicker(value, element) {
-    var startDate = $("#datepicker").val().split('/').reverse().join('-'); // Formato 'yyyy-mm-dd'
-    var endDate = value.split('/').reverse().join('-'); // Formato 'yyyy-mm-dd'
+  function (value, element) {
+    var startDate = $("#datepicker").val();
+    var endDate = value;
+    console.log(endDate >= startDate);
     return endDate && endDate >= startDate;
   },
   "La fecha debe ser mayor que la fecha de inicio."
 );
-$.validator.addMethod(
-  "notPastDate",
-  function (value, element) {
-    const parts = value.split("/");
-    const day = parseInt(parts[0], 10);
-    const month = parseInt(parts[1], 10) - 1; // Months are zero-based (0-January, 1-February, etc.)
-    const year = parseInt(parts[2], 10);
-
-    // Create current date without considering time
-    const currentDate = new Date();
-    currentDate.setHours(0, 0, 0, 0); // Set time to midnight
-
-    // Create selected date without considering time
-    const selectedDate = new Date(year, month, day);
-
-    return selectedDate >= currentDate;
-  },
-  "La fecha debe ser igual o posterior a hoy."
-);
-
 $("#cartInfo").validate({
   ignore: "",
   rules: {
     name: { required: true },
     email: { required: true, email: true },
     phone: { required: true },
-    datepicker: { required: true, notPastDate: true },
-    datepickerend: {
-      required: true,
-      greaterThanDatepicker: true,
-      notPastDate: true,
-    },
+    datepicker: { required: true },
+    datepickerend: { required: true, greaterThanDatepicker: true },
   },
   messages: {
-    name: { required: "Este campo es obligatorio." },
+    name: { required: "Este campo es oblogatorio." },
     email: {
-      required: "Este campo es obligatorio.",
+      required: "Este campo es oblogatorio.",
       email: "El correo no es válido.",
     },
-    phone: { required: "Este campo es obligatorio." },
-    datepicker: { required: "Este campo es obligatorio." },
+    phone: { required: "Este campo es oblogatorio." },
+    datepicker: { required: "Este campo es oblogatorio." },
     datepickerend: {
-      required: "Este campo es obligatorio.",
+      required: "Este campo es oblogatorio.",
       greaterThanDatepicker: "La fecha debe ser mayor que la fecha de inicio.",
     },
   },
   submitHandler: function (form) {
-    let valuephone =
-      document.querySelector(".iti__selected-dial-code").innerHTML +
-      document.querySelector("#phone").value;
-    document.querySelector("#phone").value = valuephone;
-    console.log(valuephone, document.querySelector("#phone").value);
+    console.log(form);
     $("#cartInfo button[type=submit]").attr("disabled", true);
     $("#cartInfo button[type=submit]").text("Enviando");
     $("#cartInfo").ajaxSubmit({

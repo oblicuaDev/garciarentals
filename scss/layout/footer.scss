@@ -31,6 +31,8 @@ footer {
         color: rgba($color: #000000, $alpha: 0.5);
         @media only screen and (max-width: 768px) {
           font-size: 10px;
+          justify-content: center;
+          align-items: center;
         }
       }
     }
@@ -79,5 +81,22 @@ footer {
         }
       }
     }
+  }
+}
+.cursor {
+  width: 20px;
+  height: 20px;
+  background-color: #000;
+  pointer-events: none;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  transition: all 0.1s ease;
+  transition-property: background, transform;
+  transform-origin: 100% 100%;
+  z-index: 9999;
+  pointer-events: none;
+  @media only screen and (max-width: 768px) {
+    display: none;
   }
 }

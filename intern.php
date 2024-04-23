@@ -1,13 +1,15 @@
-<?php $classBody = "intern"; include 'includes/head.php'; ?>
-<?php $equipo = $sdk->gEquipo($_GET["idEquipo"]);
-?>    
+<?php 
+extract($_GET);
+$classBody = "intern"; include 'includes/head.php'; ?>
+<?php $equipo = $sdk->gEquipo($idEquipo); ?>    
 <?php include 'includes/header.php'; ?>    
 <script>
-    let categoryIntern = "<?=$_GET["idCat"]?>";
-    let nameCategoryIntern = "<?=$_GET["nameCat"]?>";
+    let categoryIndex = "<?=$catIndex?>";
+    let categoryIntern = "<?=$idCat?>";
+    let nameCategoryIntern = "<?=$nameCat?>";
 </script>
-    <main data-name="ALEXA 35" data-id="2" class="container">
-        <small><a href="/<?=$lang?>/equipos"><?=$equipo->acf->categoria[0]->name?></a> / <?=$equipo->title->rendered?></small>
+    <main data-name="<?=$equipo->title->rendered?>" data-id="<?=$equipo->id?>" class="container">
+        <small><a href="/<?=$lang?>/equipos?activeIndex=<?=$_GET['idCat']?>"></a> / <?=$equipo->title->rendered?></small>
         <section class="splide" aria-label="Splide Basic HTML Example">
             <div class="splide__track">
                 <ul class="splide__list">
@@ -16,7 +18,7 @@
                         $fotoEquipo = $equipo->acf->foto_del_equipo[$i]; 
                     ?>
                     <li class="splide__slide"><img
-                            src="<?= isset($fotoEquipo) ? $fotoEquipo : "https://placehold.co/600x400?text=Equipos"?>" alt="<?=$equipo->title->rendered?>">
+                            src="<?= isset($fotoEquipo) ? $sdk->replaceUrl($fotoEquipo) : "https://placehold.co/600x400?text=Equipos"?>" alt="<?=$equipo->title->rendered?>">
                     </li>
                     <?php } ?>
                 </ul>
@@ -24,7 +26,7 @@
         </section>
         <h2><?=$equipo->title->rendered?></h2>
         <div class="desc">
-            <img src="<?=isset($equipo->acf->foto_del_equipo[0]) ? $equipo->acf->foto_del_equipo[0] : "https://placehold.co/600x400?text=Equipos"?>" alt="image 1">
+            <img src="<?=isset($equipo->acf->foto_del_equipo[0]) ? $sdk->replaceUrl($equipo->acf->foto_del_equipo[0]) : "https://placehold.co/600x400?text=Equipos"?>" alt="image 1">
             <div class="text">
                 <div class="info">
                 <?=isset($equipo->content->rendered) && $equipo->content->rendered != ""  ? $equipo->content->rendered :"<p>Donec semper, magna eget iaculis malesuada, risus leo sodales purus, id tempus felis elit a sem. Aenean eros leo, euismod sit amet arcu vel, aliquet pulvinar ex. Pellentesque ut augue molestie, porttitor mauris nec, tincidunt eros. Donec pharetra dolor purus, non auctor ante bibendum ac. Sed suscipit turpis vitae arcu condimentum suscipit. Nulla quis diam rutrum, pulvinar lectus in, feugiat nisi. Maecenas consectetur enim et dolor feugiat consectetur. Ut feugiat lacinia tortor non mollis. Morbi fermentum vehicula odio, ut vulputate ligula faucibus non.</p>"?>

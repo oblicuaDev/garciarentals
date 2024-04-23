@@ -12,7 +12,6 @@ body {
 }
 .home {
   position: relative;
-
   a {
     color: inherit;
   }
@@ -22,10 +21,9 @@ body {
   }
 
   video {
-    aspect-ratio: 16 / 9;
     width: 100%;
     mix-blend-mode: multiply;
-    margin: 30px 0;
+    margin: 0 0 30px;
     @media only screen and (max-width: 768px) {
       aspect-ratio: 9 / 16;
       height: 60vh;
@@ -65,6 +63,7 @@ body {
     font-weight: bold;
     display: flex;
     gap: 20px;
+    line-height: 52px;
     justify-content: flex-end;
     margin-right: -20px;
     @media only screen and (max-width: 768px) {
@@ -353,6 +352,7 @@ body {
   }
   section.services {
     gap: 0;
+    overflow: hidden;
     @media only screen and (max-width: 768px) {
       padding: 100px 20px;
     }
@@ -369,41 +369,27 @@ body {
         letter-spacing: 0.05em;
         line-height: 22px;
         margin: 50px 0;
-        @media only screen and (max-width: 768px) {
-          &:nth-of-type(2),
-          &:nth-of-type(3) {
-            display: flex;
-            justify-content: flex-end;
-          }
-        }
-        a {
+        small {
           font-size: 14px;
           font-style: normal;
           font-weight: 300;
           letter-spacing: 0.05em;
           line-height: 22px;
-          small {
-            font-size: 14px;
-            font-style: normal;
-            font-weight: 300;
-            letter-spacing: 0.05em;
-            line-height: 22px;
-            position: relative;
-            &::after {
-              position: absolute;
-              top: 50%;
-              left: 50%;
-              z-index: -1;
-              transform: translate(-50%, -50%);
-              background-image: url(../img/marcador.png);
-              content: "";
-              background-size: contain;
-              background-position: center center;
-              background-repeat: no-repeat;
-              width: 120%;
-              height: 97px;
-              transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            }
+          position: relative;
+          &::after {
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            z-index: -1;
+            transform: translate(-50%, -50%);
+            background-color: #8afe2a;
+            content: "";
+            background-size: contain;
+            background-position: center center;
+            background-repeat: no-repeat;
+            width: 120%;
+            height: 3px;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
           }
         }
       }

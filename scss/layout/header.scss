@@ -1,6 +1,6 @@
 header {
   height: 80px;
-  z-index: 10;
+  z-index: 999;
   position: relative;
   .container {
     height: 100%;
@@ -81,7 +81,6 @@ header {
         padding: 0;
         background-color: #f5f5f5;
         min-width: 60px;
-        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
         z-index: 1;
         border-radius: 5px;
         max-height: 315px;
@@ -271,6 +270,7 @@ header {
         font-size: 40px;
         @media only screen and (max-width: 768px) {
           margin-bottom: 3px;
+          font-size: 25px;
         }
       }
       h3 {
@@ -321,7 +321,7 @@ header {
     .count {
       position: absolute;
       top: 0;
-      right: 0;
+      right: -10px;
       z-index: 2;
       font-size: 11px;
       border-radius: 50%;
@@ -416,6 +416,12 @@ header {
           }
         }
       }
+    }
+  }
+  &.activeMenu {
+    filter: invert(100%);
+    #cart .count {
+      filter: invert(100%);
     }
   }
 }
