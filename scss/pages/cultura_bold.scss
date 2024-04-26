@@ -225,6 +225,43 @@
       object-fit: cover;
     }
   }
+  .containeranimationtext {
+    padding: 20px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      object-fit: cover;
+      object-position: center;
+      transform: translate(-50%, -50%);
+    }
+    .texts {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      z-index: 10;
+      top: 140px;
+      font-weight: bold;
+      top: 50%;
+      left: 50%;
+      mix-blend-mode: difference;
+      .text {
+        display: flex;
+        color: #fff;
+        gap: 8px;
+        p{
+          font-size: clamp(8px,1vw,12px);
+        }
+      }
+    }
+  }
+  
   footer {
     ul li,
     ul li,

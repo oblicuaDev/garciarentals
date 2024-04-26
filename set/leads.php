@@ -38,7 +38,7 @@ CURLOPT_FOLLOWLOCATION => true,
 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 CURLOPT_CUSTOMREQUEST => 'POST',
 CURLOPT_POSTFIELDS =>'{
-    "To": ["hernanavelino.coo@garciarental.co"],
+    "To": ["alquileres@garciarental.co"],
     "ConsentToTrack": "yes"
 }',
 CURLOPT_HTTPHEADER => array(

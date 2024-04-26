@@ -32,6 +32,8 @@
     </footer>
     <div class="cursor"></div>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.7/dat.gui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="js/jquery.js"></script>
 <script src="js/jquery.validate.min.js"></script>
