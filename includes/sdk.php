@@ -85,7 +85,7 @@ class Garcia {
 	}
 
     function getPalabras(){
-            $palabras = $this->query("garcia-interfaz?field=idioma&value=".$this->language);
+            $palabras = $this->query("garcia-interfaz?field=idioma,interfaz&value=".$this->language.",Rentals");
             preg_match_all('/<p>(.*?)<\/p>/', $palabras[0]->content->rendered, $matches);
             $texts = $matches[1];
             $palabras = $texts;
