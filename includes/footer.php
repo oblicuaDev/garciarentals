@@ -30,6 +30,14 @@
             <?php } ?>
         </div>
     </footer>
+    <?php
+echo '
+<div class="bhrcredits" style="text-align:right; background:rgba(0 0 0 / 88%); padding:10px 5px; width:100%;grid-column: 1 / -1;">
+    <div style="max-width: 1200px;max-height: 15px; margin: 0 auto;color: #FFF;font-size: 12px;display: flex;align-items: center;padding: 5px;justify-content: flex-end; bottom: 0%;">Creado junto a <a href="https://www.web.oblicua.co/lograrlo" style="color:#428bca;" target="_blank"><img src="https://oblicua.co/lab/credits/logo.svg" width="60" style="margin-left:10px;" alt="Sitio diseñado por Oblicua"></a>
+    </div>
+</div>
+';
+?>
     <div class="cursor"></div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.7/dat.gui.min.js"></script>
